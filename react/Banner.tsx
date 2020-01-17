@@ -27,9 +27,7 @@ export interface Props {
   /** The url where the image is pointing to, in case of internal route (optional) */
   customInternalURL: string
   /** Runtime injected deps */
-  runtime: any,
-  /** Link for the tablet image of the banner */
-  tabletImage: string
+  runtime: any
 }
 
 function getParams(params: string) {
@@ -52,19 +50,16 @@ const Banner = (props: Props) => {
     image,
     params,
     mobileImage,
-    tabletImage,
     height = 420,
     externalRoute,
     description = '',
     customInternalURL,
   } = props
 
-
-
-  const { isMobile, device} = useDevice()
+  const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
 
-  const content:any = (
+  const content = (
     <div className={classnames(styles.containerImg, 'w-100')}>
       <div
         className={classnames(
@@ -75,7 +70,7 @@ const Banner = (props: Props) => {
       >
         <img
           className={classnames(handles.img, 'w-100 h-100')}
-          src={device === "tablet" ? tabletImage : isMobile ? mobileImage : image}
+          src={isMobile && mobileImage ? mobileImage : image}
           alt={description}
         />
       </div>
